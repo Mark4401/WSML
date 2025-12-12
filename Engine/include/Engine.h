@@ -12,17 +12,16 @@
 #endif
 
 
-// ------------------------------
-// CUDA wrapper interface (C linkage)
-// ------------------------------
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+    
+    ENGINE_API extern const char* Platform_name;
 
     ENGINE_API int Addition(int One, int two);
     ENGINE_API int Subtraction(int One, int two);
 
+    ENGINE_API void Hook();
 
 #ifdef __cplusplus
 } // extern "C"

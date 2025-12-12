@@ -1,0 +1,43 @@
+cmake_minimum_required(VERSION 3.22 FATAL_ERROR)
+project(App VERSION 0.1 LANGUAGES C CXX)
+
+# Add workflow Library prefix to CMAKE_PREFIX_PATH (already determined in root)
+list(APPEND CMAKE_PREFIX_PATH "${Library_Prefix}")
+
+find_package(Engine 0.0.5 REQUIRED)
+
+#------------------------------------------------------------------------#
+# Project Shortcut-variables
+#------------------------------------------------------------------------#
+
+set(APP_SRCS    
+    "${CMAKE_CURRENT_SOURCE_DIR}/Source/App.cpp"
+)
+set(APP_HDRS
+    ""
+)
+
+#------------------------------------------------------------------------#
+# Project Shortcut-variables
+#------------------------------------------------------------------------#
+
+
+#------------------------------------------------------------------------#
+# Project Build-Helper function
+#------------------------------------------------------------------------#
+
+App_builder(${PROJECT_NAME}
+    OUTPUT_DIR                  Altera-Ody-App
+    BUILD_DESTINATION_PATH      ${global_build_dir}
+    WIN32                       OFF
+    EXPORT_FLAG                 ""
+    SOURCES                     ${APP_SRCS}
+    HEADERS                     ${APP_HDRS}
+    PUBLIC_INCLUDES             "${CMAKE_CURRENT_SOURCE_DIR}/Include"
+    PRIVATE_INCLUDES            "${CMAKE_CURRENT_SOURCE_DIR}/Internal"
+    LINK_LIBS                   ws2_32 Engine::Engine
+)
+
+#------------------------------------------------------------------------#
+# Project Build-Helper function
+#------------------------------------------------------------------------#

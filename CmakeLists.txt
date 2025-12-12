@@ -1,38 +1,30 @@
 cmake_minimum_required(VERSION 3.22 FATAL_ERROR)
-project(Altera-Odyssey VERSION 0.1 LANGUAGES C CXX)
-
-# ------------------------
-# Compiler standards
-# ------------------------
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+project(Altera_Odyssey_Global_presets VERSION 0.1 LANGUAGES C CXX)
 
 set(CMAKE_C_STANDARD 20)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
-# ------------------------
-# Include helper functions
-# ------------------------
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 include(cmake/App_Builder.cmake)
 include(cmake/build_library.cmake)
 include(cmake/DeployDLL.cmake)
+include(cmake/Build_Destination_type.cmake)
 
-# ------------------------
-# Global output directories
-# ------------------------
-set(GLOBAL_OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Builds")
-set(EXTERNAL_LIBRARIES "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies")
 
-# ------------------------
-# Test Environment - Private ONLY
-# ------------------------
+set(global_build_dir		"${CMAKE_CURRENT_SOURCE_DIR}/Builds")
+set(external_dependencies	"${CMAKE_CURRENT_SOURCE_DIR}/Dependencies")
 
-# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Test )
+#------------------------------------------------------------------------#
+# Configuration variables & paths
+#------------------------------------------------------------------------#
 
-# ------------------------
-# Add subdirectories
-# ------------------------
-add_subdirectory(WorkFlow)
+cfg_path_type(Application_Prefix	"${global_build_dir}/Altera-Ody-App")
+cfg_path_type(Library_Prefix		"${global_build_dir}/Altera-Ody-Engine")
 
+
+add_subdirectory(App)
+add_subdirectory(Engine)
