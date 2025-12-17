@@ -20,15 +20,7 @@ int main(int argv, char* argc[])
 
 	while (Queue(Primary))
 	{
-		if ()
-		{
-			cout << "\nQueue Active!\n";
 
-			;
-		}
-		cout << "\nnQueuw Shutdown!\n";
-
-		return true;
 	}
 
 	cout << "Client destroyed!\n";

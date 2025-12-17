@@ -4,6 +4,9 @@
 using namespace std;
 
 bool Actively_running_status = true;
+bool Primary_Win32_Window_Class_Register = false;
+
+static WIN32_CLIENT* Internal_Win32_properties_messanger = nullptr;
 
 LRESULT CALLBACK
 Main_Wincow_Proc(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
@@ -47,31 +50,6 @@ void Black_Title_Bar(HWND Window_handle)
 	ShowWindow(Window_handle, SW_HIDE);
 	ShowWindow(Window_handle, SW_SHOW);
 }
-
-bool Win32_Event_Queue(bool Active_state)
-{
-	Actively_running_status = Active_state;
-	MSG Message_Loop = { };
-
-	while (PeekMessageW(&Message_Loop, 0, 0, 0, PM_REMOVE))
-	{
-		TranslateMessage(&Message_Loop);
-		DispatchMessageW(&Message_Loop);
-
-		if (Message_Loop.message == WM_QUIT)
-		{
-			Actively_running_status = false;
-
-			break;
-		}
-	}
-
-
-	return Actively_running_status;
-}
-
-
-bool Primary_Win32_Window_Class_Register = false;
 
 WIN32_CLIENT* Create_Window_Properties(int Height, int Width, const wchar_t* App_title, bool Dark_title_bar)
 {
@@ -130,8 +108,34 @@ WIN32_CLIENT* Create_Window_Properties(int Height, int Width, const wchar_t* App
 	{
 		Black_Title_Bar(Window->Client_Window_Handle);
 	};
+
+	Internal_Win32_properties_messanger = Window;
 	
 	return Window;
+}
+
+bool Win32_Event_Queue(bool Active_state)
+{
+	Actively_running_status = Active_state;
+	MSG Message_Loop = { };
+
+	while (PeekMessageW(&Message_Loop, 0, 0, 0, PM_REMOVE))
+	{
+		TranslateMessage(&Message_Loop);
+		DispatchMessageW(&Message_Loop);
+
+		if (Message_Loop.message == WM_QUIT)
+		{
+			Actively_running_status = false;
+
+			Internal_Win32_properties_messanger->Currently_Running = false;
+
+			return Actively_running_status;
+		}
+	}
+
+	Internal_Win32_properties_messanger->Currently_Running = true;
+	return Actively_running_status;
 }
 
 
@@ -148,6 +152,8 @@ void Delete_Win32_Window_Porperties(WIN32_CLIENT* Window_Properties)
 		DestroyWindow(Window_Properties->Client_Window_Handle);
 		Window_Properties->Client_Window_Handle = nullptr;
 	}
+
+	Internal_Win32_properties_messanger = nullptr;
 
 	cout << "\nWin32 Window properties & memory deleted --> User Event!\n";
 

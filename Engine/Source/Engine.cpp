@@ -6,8 +6,6 @@ using namespace std;
 
 bool Actively_running = true;
 
-//static CLIENT* CLient_Adds_Reference = nullptr;
-
 static WIN32_CLIENT* Main_Window_Adds_Reference = nullptr;
 
 int Create_Client_Window(CLIENT* Client_reference)
@@ -25,12 +23,12 @@ int Create_Client_Window(CLIENT* Client_reference)
 
 bool Queue(CLIENT* Client_reference)
 {
-    if ( !Client_reference )
+   if ( !Client_reference || Main_Window_Adds_Reference->Currently_Running == false)
     {
         Win32_Event_Queue(false);
         Delete_Win32_Window_Porperties(Main_Window_Adds_Reference);
         
-        cout << "HI";
+        cout << "\nHI\n";
         return false;
     }
 
