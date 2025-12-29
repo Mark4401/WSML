@@ -5,21 +5,35 @@
 #define WIN32_LEAN_AND_MEAN
 #endif 
 
-// 8-bit
-typedef signed char       int8_s;
-typedef unsigned char     int8_u;
+//// 8-bit
+//typedef signed char       int8_s;
+//typedef unsigned char     int8_u;
+//
+//// 16-bit
+//typedef signed short      int16_s;
+//typedef unsigned short    int16_u;
+//
+//// 32-bit
+//typedef signed int        int32_s;
+//typedef unsigned int      int32_u;
+//
+//// 64-bit
+//typedef signed long long  int64_s;
+//typedef unsigned long long int64_u;
 
-// 16-bit
-typedef signed short      int16_s;
-typedef unsigned short    int16_u;
+#include<cstdint>
 
-// 32-bit
-typedef signed int        int32_s;
-typedef unsigned int      int32_u;
+typedef int8_t int8_s;
+typedef uint8_t int8_u;
 
-// 64-bit
-typedef signed long long  int64_s;
-typedef unsigned long long int64_u;
+typedef int16_t int16_s;
+typedef uint16_t int16_u;
+
+typedef int32_t int32_s;
+typedef uint32_t int32_u;
+
+typedef int64_t int64_s;
+typedef uint64_t int64_u;
 
 // typedefs
 
@@ -27,6 +41,8 @@ typedef const wchar_t* Wide_Char;
 
 #define DEFAULT_WINDOW_ID									1
 #define BLANK_WINDOW_STYLE									0
+
+
 #define WIN32_LIBRARIY_PROPERTIES_ACTIVE					2
 #define WIN32_LIBRARIY_PROPERTIES_SUCCESSFUL_DELETION		4
 #define WIN32_LIBRARIY_PROPERTIES_FAILURE_DELETION			8

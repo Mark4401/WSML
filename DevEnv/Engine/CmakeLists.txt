@@ -17,6 +17,9 @@ set(LIBRARY_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Source/Engine.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Source/Runtime_variables.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Source/Win32_properties.cpp"
+
+    #   KEYBOARD INFORMATION
+    "${CMAKE_CURRENT_SOURCE_DIR}/Source/Win32_Keyboard_properties.cpp"
 )
 
 set(LIBRARY_HDRS

@@ -1,32 +1,29 @@
+#include <Engine.h>
 #include <iostream>
-#include<Engine.h>
 
 using namespace std;
 
-
 int main(int argv, char* argc[])
-//int WinMain()
 {
+    CLIENT* Primary = new CLIENT{ };
 
-	CLIENT* Primary = new CLIENT{ };
+    Primary->Width = 400;
+    Primary->Height = 400;
+    Primary->Title = L"Hello World! - 12/17/2025";
+    Primary->Active_black_title_bar = true;
 
-	Primary->Width = 1200;
-	Primary->Height = 800;
-	Primary->Title = L"Hello World! - 12/17/2025";
-	Primary->Active_black_title_bar = true;
+    Create_Client_Window(Primary);
 
-	Create_Client_Window(Primary);
+    cout << "\nClient created!\n";
 
-	cout << "\Client created!\n";
+    while (Queue(Primary))
+    {
 
-	while (Queue(Primary))
-	{
+    }
 
-	}
+    cout << "\nClient destroyed!\n";
 
-	cout << "\nClient destroyed!\n";
+    Destroy_Client_Window(Primary);
 
-	Destroy_Client_Window(Primary);
-
-	return 0;
+    return 0;
 }

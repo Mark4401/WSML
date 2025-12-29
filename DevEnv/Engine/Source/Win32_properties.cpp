@@ -1,5 +1,6 @@
-#include"Win32_properties.h"
+﻿#include"Win32_properties.h"
 #include"Runtime_variables.h"
+#include"Win32_Keyboard_properties.h"
 
 using namespace std;
 
@@ -13,6 +14,19 @@ Main_Wincow_Proc(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 {
 	switch (Message)
 	{
+	case WM_KEYDOWN:
+	case WM_KEYUP:
+	case WM_SYSKEYDOWN:
+	case WM_SYSKEYUP:
+	{
+		Keyboard_Data(Window, Message, WParam, LParam);
+
+		cout << Return_Virtual_Code() << "\n";
+		cout << Return_Key_Flags() << "\n";
+		cout << Return_Scan_Code() << "\n";
+
+		break;
+	}
 	case WM_DESTROY:
 	{
 		Actively_running_status = false;
@@ -90,7 +104,7 @@ WIN32_CLIENT* Create_Window_Properties(int Height, int Width, const wchar_t* App
 	}
 
 	Window->Client_Window_Handle = CreateWindowExW(
-		0, Window_CLass_Name, Window->Title,
+		BLANK_WINDOW_STYLE, Window_CLass_Name, Window->Title,
 		WS_OVERLAPPEDWINDOW | WS_VISIBLE,
 		CW_USEDEFAULT, CW_USEDEFAULT,
 		Window->Width, Window->Height,
