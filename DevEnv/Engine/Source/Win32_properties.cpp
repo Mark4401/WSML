@@ -20,10 +20,12 @@ Main_Wincow_Proc(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 	case WM_SYSKEYUP:
 	{
 		Keyboard_Data(Window, Message, WParam, LParam);
+		
+		WIN32_Keyboard_Data(Window, Message, WParam, LParam);
 
-		cout << Return_Virtual_Code() << "\n";
-		cout << Return_Key_Flags() << "\n";
-		cout << Return_Scan_Code() << "\n";
+		cout << Return_Virtual_Code() << "\t" << Return_Vk() << " | VK CODE  \n";
+		cout << Return_Key_Flags() << "\t" << Return_KeyFlags() << " | KEY FLAG    \n";
+		cout << Return_Scan_Code() << "\t" << Return_ScanCode() << " | SCAN CODE   \n\n";
 
 		break;
 	}

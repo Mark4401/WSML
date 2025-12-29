@@ -44,3 +44,40 @@ int16_u Return_Virtual_Code() { return Virtual_Key_Code; }
 int16_u Return_Key_Flags() { return Key_Flags; }
 int16_u Return_Scan_Code() { return Scan_Code; }
 
+
+WORD vkCode = 0; 
+WORD keyFlags = 0;
+WORD scanCode = 0;
+
+void WIN32_Keyboard_Data(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
+{
+    vkCode = LOWORD(WParam);                                
+
+    keyFlags = HIWORD(LParam);
+
+    scanCode = LOBYTE(keyFlags);                        
+    BOOL isExtendedKey = (keyFlags & KF_EXTENDED) == KF_EXTENDED; 
+
+    if (isExtendedKey)
+        scanCode = MAKEWORD(scanCode, 0xE0);
+
+    BOOL wasKeyDown = (keyFlags & KF_REPEAT) == KF_REPEAT;        
+    WORD repeatCount = LOWORD(LParam);                            
+
+    BOOL isKeyReleased = (keyFlags & KF_UP) == KF_UP;            
+
+
+    switch (vkCode)
+    {
+    case VK_SHIFT:   
+    case VK_CONTROL: 
+    case VK_MENU:    
+        vkCode = LOWORD(MapVirtualKeyW(scanCode, MAPVK_VSC_TO_VK_EX));
+        break;
+    }
+}
+
+
+WORD Return_Vk() { return vkCode;  };
+WORD Return_KeyFlags() { return keyFlags; };
+WORD Return_ScanCode() { return scanCode; };
