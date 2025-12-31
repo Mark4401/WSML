@@ -1,6 +1,7 @@
 ﻿#include"Win32_properties.h"
 #include"Runtime_variables.h"
 #include"Win32_Keyboard_properties.h"
+#include"Win32_Phys_Monitor_Properties.h"
 
 using namespace std;
 
@@ -23,9 +24,9 @@ Main_Wincow_Proc(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 		
 		WIN32_Keyboard_Data(Window, Message, WParam, LParam);
 
-		cout << Return_Virtual_Code() << "\t" << Return_Vk() << " | VK CODE  \n";
-		cout << Return_Key_Flags() << "\t" << Return_KeyFlags() << " | KEY FLAG    \n";
-		cout << Return_Scan_Code() << "\t" << Return_ScanCode() << " | SCAN CODE   \n\n";
+		cout << "| My Method \t" << Return_Virtual_Code() << "\t | Win32  " << Return_Vk() << "\t | VK CODE  \n";
+		cout << "| My Method \t" << Return_Key_Flags() << "\t | Win32  " << Return_KeyFlags() << "\t | KEY FLAG    \n";
+		cout << "| My Method \t" << Return_Scan_Code() << "\t | Win32  " << Return_ScanCode() << "\t | SCAN CODE   \n\n";
 
 		break;
 	}
@@ -125,10 +126,25 @@ WIN32_CLIENT* Create_Window_Properties(int Height, int Width, const wchar_t* App
 		Black_Title_Bar(Window->Client_Window_Handle);
 	};
 
+	// Window Position Arrangement.
+
+	Physical_Screen_Info Monitor_Ref_Data = Physical_Monitor_Dimensions(Window->Client_Window_Handle);
+
+	cout << "\nPhysical Display Dimensions: \n\n";
+	cout << "X (LEFT EDGE): " << Monitor_Ref_Data.X_Min << " \t X (RIGHT EDGE): " << Monitor_Ref_Data.X_Max << "\n";
+	cout << "Y (TOP EDGE): " << Monitor_Ref_Data.Y_Min << " \t Y (BOTTOM EDGE): " << Monitor_Ref_Data.Y_Max << "\n";
+
+	cout << "\nWindow DPI Scale values: \n\n";
+	cout << "Height: " << Monitor_Ref_Data.dpi_Scaled_Height << "\tWight: " << Monitor_Ref_Data.dpi_Scaled_Width << "\n";
+	cout << "X Scale: : " << Monitor_Ref_Data.dpi_Scaled_X << "\tY Scale: " << Monitor_Ref_Data.dpi_Scaled_Y << "\n\n";
+
+	Physical_Monitor_Position(Window->Client_Window_Handle);
+	
 	Internal_Win32_properties_messanger = Window;
 	
 	return Window;
 }
+
 
 bool Win32_Event_Queue(bool Active_state)
 {
@@ -153,7 +169,6 @@ bool Win32_Event_Queue(bool Active_state)
 	Internal_Win32_properties_messanger->Currently_Running = true;
 	return Actively_running_status;
 }
-
 
 
 void Delete_Win32_Window_Porperties(WIN32_CLIENT* Window_Properties)

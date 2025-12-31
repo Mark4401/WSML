@@ -7,8 +7,8 @@ int main(int argv, char* argc[])
 {
     CLIENT* Primary = new CLIENT{ };
 
-    Primary->Width = 400;
-    Primary->Height = 400;
+    Primary->Width = 700;
+    Primary->Height = 1080;
     Primary->Title = L"Hello World! - 12/17/2025";
     Primary->Active_black_title_bar = true;
 

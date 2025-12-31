@@ -1,4 +1,3 @@
-#include"Runtime_variables.h"
 #include"Win32_Keyboard_properties.h"
 
 #define BIT_LENGTH_8    0xFF
@@ -23,7 +22,7 @@ void Keyboard_Data(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 
     Key_extended_Data = (Key_Flags & KF_EXTENDED) == KF_EXTENDED;
 
-    if (Key_extended_Data) { Scan_Code = MAKEWORD(0xF0, Scan_Code); };
+    if (Key_extended_Data) { Scan_Code = MAKEWORD(Scan_Code, 0xE0); };
         
     Repeat_Count = static_cast<int16_u>(LParam & BIT_LENGTH_16);
         
@@ -81,3 +80,19 @@ void WIN32_Keyboard_Data(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam
 WORD Return_Vk() { return vkCode;  };
 WORD Return_KeyFlags() { return keyFlags; };
 WORD Return_ScanCode() { return scanCode; };
+
+#define INITIALX_96DPI 50 
+#define INITIALY_96DPI 50 
+#define INITIALWIDTH_96DPI 100 
+#define INITIALHEIGHT_96DPI 50 
+
+// DPI scale the position and size of the button control 
+void UpdateButtonLayoutForDpi(HWND hWnd)
+{
+    int iDpi = GetDpiForWindow(hWnd);
+    int dpiScaledX = MulDiv(INITIALX_96DPI, iDpi, USER_DEFAULT_SCREEN_DPI);
+    int dpiScaledY = MulDiv(INITIALY_96DPI, iDpi, USER_DEFAULT_SCREEN_DPI);
+    int dpiScaledWidth = MulDiv(INITIALWIDTH_96DPI, iDpi, USER_DEFAULT_SCREEN_DPI);
+    int dpiScaledHeight = MulDiv(INITIALHEIGHT_96DPI, iDpi, USER_DEFAULT_SCREEN_DPI);
+    SetWindowPos(hWnd, hWnd, dpiScaledX, dpiScaledY, dpiScaledWidth, dpiScaledHeight, SWP_NOZORDER | SWP_NOACTIVATE);
+}
