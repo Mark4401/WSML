@@ -2,8 +2,14 @@
 #include"Runtime_variables.h"
 #include"Win32_properties.h"
 #include"Win32_Phys_Monitor_Properties.h"
+#include"Windows_Prop_And_Exm.h"
 
 using namespace std;
+
+void Default_Systen_info()
+{
+    Physical_Display_Properties();
+}
 
 void Monitor_Information()
 {
@@ -28,8 +34,6 @@ int32_s Create_Client_Window(CLIENT Client_reference)
 
     return Client_Table_index++;
 }
-
-
 
 bool Queue(int32_s Client_Index, bool Active)
 {

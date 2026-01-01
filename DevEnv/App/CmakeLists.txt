@@ -13,6 +13,7 @@ find_package(AL_OD_Runtime 0.2.1 REQUIRED)
 set(APP_SRCS    
     # "${CMAKE_CURRENT_SOURCE_DIR}/Source/C_Lang_Demo/Main_Client.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/Source/Main_Client.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Source/Old_Demos/3_Primary_WIndows.cpp"
 )
 set(APP_HDRS
     ""

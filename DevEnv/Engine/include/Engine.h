@@ -41,6 +41,7 @@ extern "C" {
         bool                Active_black_title_bar;
     };
 
+    ENGINE_API void Default_Systen_info();
     ENGINE_API void Monitor_Information();
     ENGINE_API int32_s Create_Client_Window(CLIENT Client_reference);
     

@@ -10,6 +10,18 @@ Main_Wincow_Proc(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 {
 	switch (Message)
 	{
+	//case WM_NCCREATE:
+	//{
+	//	CREATESTRUCTW* WIndow_Create_Struct_Binding = reinterpret_cast<CREATESTRUCTW*>(LParam);
+
+	//	WIN32_CLIENT* Client_Data_Binding = reinterpret_cast<WIN32_CLIENT*>(WIndow_Create_Struct_Binding->lpCreateParams);
+
+	//	SetWindowLongPtrW(Window, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(Client_Data_Binding));
+
+	//	Client_Data_Binding->Client_Window_Handle = Window;
+	//	
+	//	return TRUE;
+	//}
 	case WM_KEYDOWN:
 	case WM_KEYUP:
 	case WM_SYSKEYDOWN:
@@ -28,8 +40,6 @@ Main_Wincow_Proc(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 	case WM_DESTROY:
 	{
 		cout << "\nWindow closed\n";
-
-
 
 		PostQuitMessage(0);
 
@@ -141,15 +151,15 @@ bool Win32_Event_Queue(bool Active_state, WIN32_CLIENT& Data_ref)
 
 	while (PeekMessageW(&Message_Loop, 0, 0, 0, PM_REMOVE))
 	{
-		TranslateMessage(&Message_Loop);
-		DispatchMessageW(&Message_Loop);
-
 		if (Message_Loop.message == WM_QUIT)
 		{
 			Data_ref.Currently_Running = false;
 
 			return Active_state = false;
 		}
+
+		TranslateMessage(&Message_Loop);
+		DispatchMessageW(&Message_Loop);
 	}
 
 	return Active_state = true;
