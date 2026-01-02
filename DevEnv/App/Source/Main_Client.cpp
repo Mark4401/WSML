@@ -5,9 +5,9 @@ using namespace std;
 
 int main(int argv, char* argc[])
 {
-    //Demo_Windows();
-
     Default_Systen_info();
+
+    Get_Window_List();
 
     return 0;
 }

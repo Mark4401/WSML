@@ -6,4 +6,6 @@
 
 void Physical_Display_Properties();
 
+void Top_Level_Windows();
+
 #endif // !WIN_PROPERTIES_AND_EXAMPLES_H

@@ -1,7 +1,8 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include<cstdint>
+
+#include<stdint.h>
 
 typedef int8_t int8_s;
 typedef uint8_t int8_u;
@@ -44,8 +45,10 @@ extern "C" {
     };
 
     */
-    ENGINE_API void Default_Systen_info();
 
+    ENGINE_API void Default_Systen_info();
+    
+    ENGINE_API void Get_Window_List();
 
 #ifdef __cplusplus
 } // extern "C"

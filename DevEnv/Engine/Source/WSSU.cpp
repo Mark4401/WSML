@@ -10,3 +10,9 @@ void Default_Systen_info()
     Physical_Display_Properties();
 }
 
+void Get_Window_List()
+{
+    Top_Level_Windows();
+}
+
+
