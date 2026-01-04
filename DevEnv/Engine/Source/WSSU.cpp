@@ -15,4 +15,14 @@ void Get_Window_List()
     Top_Level_Windows();
 }
 
+void Init_Window()
+{
+    Set_Window_info();
+}
+
+bool Events()
+{
+    return Queue();
+}
+
 

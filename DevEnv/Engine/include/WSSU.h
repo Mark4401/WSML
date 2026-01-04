@@ -50,6 +50,10 @@ extern "C" {
     
     ENGINE_API void Get_Window_List();
 
+    ENGINE_API void Init_Window();
+
+    ENGINE_API bool Events();
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
