@@ -8,7 +8,7 @@ void Physical_Display_Properties();
 
 void Top_Level_Windows();
 
-void Set_Window_info();
+void Set_Window_info(const wchar_t* title);
 
 bool Queue();
 

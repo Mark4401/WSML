@@ -15,9 +15,9 @@ void Get_Window_List()
     Top_Level_Windows();
 }
 
-void Init_Window()
+void Init_Window(const wchar_t* title)
 {
-    Set_Window_info();
+    Set_Window_info(title);
 }
 
 bool Events()

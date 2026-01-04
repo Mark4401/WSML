@@ -31,86 +31,48 @@ struct Window_Data
 {
 };
 
-Window_Data* DEFALUT_WINDOW;
-
-WNDCLASSEXW DEFALUT_WINDOW_CALSS = { };
-
 LRESULT CALLBACK
 Default_Window_Proc(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 {
-
 	switch (Message)
 	{
-		//case WM_NCCREATE:
-		//{
-		//	CREATESTRUCTW* WIndow_Create_Struct_Binding = reinterpret_cast<CREATESTRUCTW*>(LParam);
+		case WM_DESTROY:
+		{
+			cout << "Window closed by user action!\n";
 
-		//	WIN32_CLIENT* Client_Data_Binding = reinterpret_cast<WIN32_CLIENT*>(WIndow_Create_Struct_Binding->lpCreateParams);
-
-		//	SetWindowLongPtrW(Window, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(Client_Data_Binding));
-
-		//	Client_Data_Binding->Client_Window_Handle = Window;
-		//	
-		//	return TRUE;
-		//}
-	case WM_KEYDOWN:
-	case WM_KEYUP:
-	case WM_SYSKEYDOWN:
-	case WM_SYSKEYUP:
-	{
-		/*
-		Keyboard_Data(Window, Message, WParam, LParam);
-
-		WIN32_Keyboard_Data(Window, Message, WParam, LParam);
-
-		cout << "| My Method \t" << Return_Virtual_Code() << "\t | Win32  " << Return_Vk() << "\t | VK CODE  \n";
-		cout << "| My Method \t" << Return_Key_Flags() << "\t | Win32  " << Return_KeyFlags() << "\t | KEY FLAG    \n";
-		cout << "| My Method \t" << Return_Scan_Code() << "\t | Win32  " << Return_ScanCode() << "\t | SCAN CODE   \n\n";
-		*/
-		break;
+			PostQuitMessage(0);
+			
+			return 0;
+		}
 	}
-	case WM_DESTROY:
-	{
-		cout << "\nWindow closed\n";
-
-		PostQuitMessage(0);
-
-		return 0;
-	}
-	case WM_PAINT:
-	{
-		// Window painting at resize 
-		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint(Window, &ps);
-
-		// All painting occurs here, between BeginPaint and EndPaint.
-
-		FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
-
-		EndPaint(Window, &ps);
-	}
-	return 0;
-	}
-	return DefWindowProc(Window, Message, WParam, LParam);
+	return DefWindowProcW(Window, Message, WParam, LParam);
 };
 
-void Set_Window_info()
-{
-	//DEFALUT_WINDOW_CALSS = { };
+Window_Data* DEFALUT_WINDOW;
 
-	DEFALUT_WINDOW_CALSS.cbSize				= sizeof(WNDCLASSEXW);
-	DEFALUT_WINDOW_CALSS.style				= 0;
-	DEFALUT_WINDOW_CALSS.lpfnWndProc		= Default_Window_Proc;
-	DEFALUT_WINDOW_CALSS.hInstance			= GetModuleHandle(nullptr);
-	DEFALUT_WINDOW_CALSS.lpszClassName		= L"DEF_WINDOW_CALSS";
+WNDCLASSW DEAFULT_WINDOW_CLASS = { };
+
+static int g_WindowCount = 0;
+
+void Set_Window_info(const wchar_t* title)
+{
+	DEAFULT_WINDOW_CLASS.style				= CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+	DEAFULT_WINDOW_CLASS.lpfnWndProc		= Default_Window_Proc;
+	DEAFULT_WINDOW_CLASS.hInstance			= GetModuleHandle(nullptr);
+	DEAFULT_WINDOW_CLASS.lpszClassName		= L"DEF_WINDOW_CALSS";
 	
-	if (!RegisterClassExW(&DEFALUT_WINDOW_CALSS)) { cout << GetLastError() << "\n"; };
+	if (!RegisterClassW(&DEAFULT_WINDOW_CLASS)) 
+	{
+		cout << GetLastError() << "\n"; 
+		cerr << "\nWindow Registration Failed!\n";
+		exit(EXIT_FAILURE);
+	};
 
 	HWND DEF_Screen = CreateWindowExW
 	(
 		0,
-		DEFALUT_WINDOW_CALSS.lpszClassName,
-		L"DEF_Window_Screen",
+		DEAFULT_WINDOW_CLASS.lpszClassName,
+		title,
 		WS_OVERLAPPEDWINDOW | WS_VISIBLE,
 		500,
 		120,
@@ -118,30 +80,43 @@ void Set_Window_info()
 		800,
 		NULL,
 		NULL,
-		DEFALUT_WINDOW_CALSS.hInstance,
+		DEAFULT_WINDOW_CLASS.hInstance,
 		NULL
 	);
 
-	//ShowWindow(DEF_Screen, SW_SHOW);
+	if (!DEF_Screen)
+	{
+		cerr << "\nWindow Creation Failed!\n";
+		exit(EXIT_FAILURE);
+	};
 
+	ShowWindow(DEF_Screen, SW_SHOW);
+
+	g_WindowCount++;
 }
+
 bool Queue()
 {
 	bool Active_state = true;
+
 	MSG Message_Loop = { };
 
 	while (PeekMessageW(&Message_Loop, 0, 0, 0, PM_REMOVE))
 	{
 		if (Message_Loop.message == WM_QUIT)
 		{
-			return Active_state = false;
+			Active_state = false;
+
+			cout << "WM_QUIT win32 message called!\n";
+
+			return Active_state;
 		}
 
 		TranslateMessage(&Message_Loop);
 		DispatchMessageW(&Message_Loop);
 	}
 
-	return Active_state = true;
+	return Active_state;
 };
 
 

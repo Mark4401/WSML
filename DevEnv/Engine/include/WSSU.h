@@ -50,7 +50,7 @@ extern "C" {
     
     ENGINE_API void Get_Window_List();
 
-    ENGINE_API void Init_Window();
+    ENGINE_API void Init_Window(const wchar_t* title);
 
     ENGINE_API bool Events();
 

@@ -5,19 +5,20 @@ using namespace std;
 
 int main(int argv, char* argc[])
 {
-    //Default_Systen_info();
+    Default_Systen_info();
 
-    //Get_Window_List();
+    Get_Window_List();
 
     cout << "called from an C++ file! :p\n\n";
 
-    Init_Window();
-    
-    while (true)
+    Init_Window(L"One");
+
+    while (Events())
     {
-        Events();
-        return true;
+        //return true;
     };
 
     return 0;
 }
+
+

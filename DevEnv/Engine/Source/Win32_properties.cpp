@@ -3,11 +3,12 @@
 
 using namespace std;
 
-/*
 
+/*
 	_ LEGACY DECLATIATIONS & INPLENTATIONS 
 	_ REFERENCE USE ONLY!
-
+	*/
+/*
 LRESULT CALLBACK
 Main_Wincow_Proc(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 {
@@ -177,4 +178,5 @@ void Delete_Win32_Window_Porperties(WIN32_CLIENT& Data_ref)
 		cout << "\nWin32 Window properties & memory deleted --> System Event!\n";
 	}
 }
+
 */
