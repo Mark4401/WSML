@@ -48,9 +48,11 @@ extern "C" {
 
     ENGINE_API void Default_Systen_info();
     
-    ENGINE_API void Get_Window_List();
+    ENGINE_API void Get_Window_System_Active_List();
 
     ENGINE_API void Init_Window(const wchar_t* title);
+
+    ENGINE_API void Process_Lists();
 
     ENGINE_API bool Events();
 

@@ -8,6 +8,25 @@ struct Window_handle_count
 	int Count;
 };
 
+#define MAX_WH_LIST	10
+
+struct WIn32_HWND_List
+{
+	HWND Active_instances[MAX_WH_LIST];
+};
+struct Window_Data
+{
+	int				Process_owned_WI_count			= 0;
+	int				Window_instance_Count			= 0;
+	bool			Class_Registry					= false;
+	//void*			WIN32_HWND_Handle_Refence_Data	= nullptr;
+	WIn32_HWND_List Data							= { };
+};
+
+Window_Data Deafult_Window = { };
+
+WNDCLASSW DEAFULT_WINDOW_CLASS = { };
+
 Window_handle_count Data;
 
 BOOL CALLBACK
@@ -27,10 +46,6 @@ void Top_Level_Windows()
 	cout << "\n(Top level Window Handle Count): " << Data.Count << "\n\n";
 }
 
-struct Window_Data
-{
-};
-
 LRESULT CALLBACK
 Default_Window_Proc(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 {
@@ -38,35 +53,53 @@ Default_Window_Proc(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 	{
 		case WM_DESTROY:
 		{
-			cout << "Window closed by user action!\n";
+			Retrieve_Window_Destruction_By_User(Window);
 
-			PostQuitMessage(0);
-			
+			Deafult_Window.Process_owned_WI_count--;
+
+			if (( Deafult_Window.Process_owned_WI_count) == 0)
+			{
+				cout << "\nActive Window list Empty! ONLY DLL handle Active\n";
+
+				PostQuitMessage(0);
+			}
+
 			return 0;
+		}
+		case WM_PAINT:
+		{
+			// Window painting at resize 
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint(Window, &ps);
+
+			// All painting occurs here, between BeginPaint and EndPaint.
+
+			FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
+
+			EndPaint(Window, &ps);
 		}
 	}
 	return DefWindowProcW(Window, Message, WParam, LParam);
 };
 
-Window_Data* DEFALUT_WINDOW;
-
-WNDCLASSW DEAFULT_WINDOW_CLASS = { };
-
-static int g_WindowCount = 0;
-
 void Set_Window_info(const wchar_t* title)
 {
-	DEAFULT_WINDOW_CLASS.style				= CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-	DEAFULT_WINDOW_CLASS.lpfnWndProc		= Default_Window_Proc;
-	DEAFULT_WINDOW_CLASS.hInstance			= GetModuleHandle(nullptr);
-	DEAFULT_WINDOW_CLASS.lpszClassName		= L"DEF_WINDOW_CALSS";
-	
-	if (!RegisterClassW(&DEAFULT_WINDOW_CLASS)) 
+	if (Deafult_Window.Class_Registry == false)
 	{
-		cout << GetLastError() << "\n"; 
-		cerr << "\nWindow Registration Failed!\n";
-		exit(EXIT_FAILURE);
-	};
+		DEAFULT_WINDOW_CLASS.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+		DEAFULT_WINDOW_CLASS.lpfnWndProc = Default_Window_Proc;
+		DEAFULT_WINDOW_CLASS.hInstance = GetModuleHandle(nullptr);
+		DEAFULT_WINDOW_CLASS.lpszClassName = L"DEF_WINDOW_CALSS";
+
+		if (!RegisterClassW(&DEAFULT_WINDOW_CLASS))
+		{
+			cout << GetLastError() << "\n";
+			cerr << "\nWindow Registration Failed!\n";
+			exit(EXIT_FAILURE);
+		};
+	}
+	
+	Deafult_Window.Class_Registry = true;
 
 	HWND DEF_Screen = CreateWindowExW
 	(
@@ -74,8 +107,8 @@ void Set_Window_info(const wchar_t* title)
 		DEAFULT_WINDOW_CLASS.lpszClassName,
 		title,
 		WS_OVERLAPPEDWINDOW | WS_VISIBLE,
-		500,
-		120,
+		400,
+		420,
 		800,
 		800,
 		NULL,
@@ -92,7 +125,35 @@ void Set_Window_info(const wchar_t* title)
 
 	ShowWindow(DEF_Screen, SW_SHOW);
 
-	g_WindowCount++;
+	if (Deafult_Window.Window_instance_Count < MAX_WH_LIST)
+	{
+		Deafult_Window.Process_owned_WI_count++;
+
+		cout << "Window Index: " << Deafult_Window.Window_instance_Count << "\n";
+		
+		Deafult_Window.Data.Active_instances[Deafult_Window.Window_instance_Count++] = DEF_Screen;
+
+		cout << "Window Handle: " << DEF_Screen << "\n";
+	}
+}
+
+void Retrieve_Window_Destruction_By_User(HWND Window)
+{
+	for (int I = 0; I < Deafult_Window.Window_instance_Count; I++)
+	{
+		if (Deafult_Window.Data.Active_instances[I] == Window)
+		{
+			cout << "\nWindow closed by user action!\t" << "(HWND_Handle): " << Deafult_Window.Data.Active_instances[I];
+		}
+	}
+}
+
+void ALL_Process_Window_Lists()
+{
+	for (int I = 0; I < Deafult_Window.Window_instance_Count; I++)
+	{
+		cout << "\nWindow Index: " << I << "\t(HWND_Handle): " << Deafult_Window.Data.Active_instances[I];
+	}
 }
 
 bool Queue()
@@ -140,6 +201,8 @@ void Physical_Display_Properties()
 
 	// DEF stands for Default; DEF is just my own short hand definition.
 	HWND DEF_handle = GetDesktopWindow();
+
+	Deafult_Window.Data.Active_instances[Deafult_Window.Window_instance_Count++] = DEF_handle;
 
 	// WIll stop GetWindowRect from complaining of retying 
 	if (!DEF_handle ) { cerr << GetLastError() << "\n"; return; };

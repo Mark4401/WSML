@@ -10,6 +10,10 @@ void Top_Level_Windows();
 
 void Set_Window_info(const wchar_t* title);
 
+static void Retrieve_Window_Destruction_By_User(HWND WIndow);
+
+void ALL_Process_Window_Lists();
+
 bool Queue();
 
 #endif // !WIN_PROPERTIES_AND_EXAMPLES_H

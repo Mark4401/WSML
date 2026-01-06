@@ -10,7 +10,7 @@ void Default_Systen_info()
     Physical_Display_Properties();
 }
 
-void Get_Window_List()
+void Get_Window_System_Active_List()
 {
     Top_Level_Windows();
 }
@@ -18,6 +18,11 @@ void Get_Window_List()
 void Init_Window(const wchar_t* title)
 {
     Set_Window_info(title);
+}
+
+void Process_Lists()
+{
+    ALL_Process_Window_Lists();
 }
 
 bool Events()
