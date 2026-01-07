@@ -9,7 +9,7 @@ int main(int argv, char* argc[])
 
     Default_Systen_info();
 
-    Init_Window(L"One", 1500, 1900, true);
+    Init_Window(L"One", 2000, 1460, true, CENTER, DEAFULT);
 
     Process_Lists();
 

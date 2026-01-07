@@ -1,5 +1,5 @@
-#include "WIn32_Window_Manager.h"
-#include"Keyboard_Win32.h"
+#include <WIn32_Window_Manager.h>
+#include<Keyboard_Win32.h>
 #include<iostream>
 
 using namespace std;
@@ -15,6 +15,21 @@ struct WIn32_HWND_List
 {
 	HWND Active_instances[MAX_WH_LIST];
 };
+
+typedef struct WIN32_CLIENT
+{
+	int					Height;
+	int					Width;
+	Wide_Char			Title;
+	HINSTANCE			h_Current_Instance;
+	HINSTANCE			h_Previous_Instance;
+	PWSTR				p_Command_Line;
+	HWND				Client_Window_Handle;
+	bool				Currently_Running;
+	bool				Active_Black_title_Bar;
+	int					n_Command_Show;
+} WIN32_CLIENT;
+
 
 struct Physical_Monitor
 {

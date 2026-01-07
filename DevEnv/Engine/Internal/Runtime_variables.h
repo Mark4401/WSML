@@ -1,5 +1,5 @@
-#ifndef TEST_INTERNAL_H
-#define TEST_INTERNAL_H
+#ifndef RUNTIME_VARIABLES_H
+#define RUNTIME_VARIABLES_H
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -88,4 +88,4 @@ typedef const wchar_t* Wide_Char;
 #endif 
 
 
-#endif // !TEST_INTERNAL_H
+#endif // !RUNTIME_VARIABLES_H

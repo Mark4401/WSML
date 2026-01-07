@@ -1,8 +1,7 @@
 #ifndef WIN_PROPERTIES_AND_EXAMPLES_H
 #define WIN_PROPERTIES_AND_EXAMPLES_H
 
-#include"Runtime_variables.h"
-#include"Win32_properties.h"
+#include<Runtime_variables.h>
 
 void Physical_Display_Properties();
 

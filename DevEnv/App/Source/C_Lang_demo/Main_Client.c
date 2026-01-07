@@ -9,11 +9,18 @@
 int main(int argv, char* argc[])
 //int WinMain()
 {
-	Default_Systen_info();
-
-	Get_Window_List();
-
 	printf("DLL/LIB - Call From C! :P");
+
+    Default_Systen_info();
+
+    Init_Window(L"One", 2000, 1460, true, CENTER, DEAFULT);
+
+    Process_Lists();
+
+    while (Events())
+    {
+        //return true;
+    };
 
 	return 0;
 }

@@ -29,7 +29,7 @@ function(build_and_export_library TARGET_NAME)
     target_include_directories(${TARGET_NAME}
         PUBLIC
             $<BUILD_INTERFACE:${LIB_PUBLIC_INCLUDES}>
-            $<INSTALL_INTERFACE:include/${TARGET_NAME}>
+            $<INSTALL_INTERFACE:include>
         PRIVATE
             $<BUILD_INTERFACE:${LIB_PRIVATE_INCLUDES}>
             $<INSTALL_INTERFACE:internal/>
