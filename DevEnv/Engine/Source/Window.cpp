@@ -6,8 +6,6 @@
 using namespace std;
 
 
-
-
 void Retrieve_All_Active_Window_instances()
 {
     Top_Level_Windows();
@@ -16,13 +14,12 @@ void Retrieve_All_Active_Window_instances()
 void Init_Window(const wchar_t* title, int Width, int Height, bool Black_title_bar, Window_Position Position)
 {
     int X = 0, Y = 0;
+
     int MAX_WIDTH = Global_Properties.Monitor->PM_Width;
     int MAX_HEIGHT = Global_Properties.Monitor->PM_Height;
 
     int MAX_V_WIDTH = Global_Properties.Monitor->PM_V_Workable_Width;
     int MAX_V_HEIGHT = Global_Properties.Monitor->PM_V_Workable_Height;
-
-    bool DPI_Awareness_state = Global_Properties.Monitor->DPI_Awareness_Status;
 
     if (!(Width <= MAX_V_WIDTH) || !(Height <= MAX_V_HEIGHT))
     {
@@ -35,42 +32,80 @@ void Init_Window(const wchar_t* title, int Width, int Height, bool Black_title_b
         case POS_TOP_LEFT:
         {
             Create_Win32_Window(title, X, Y, Width, Height, Black_title_bar);
-            //Global_Properties.Monitor.
-            //Create_Win32_Window()
 
             break;
         }
         case POS_TOP_CENTER: 
         {
+            X = ((MAX_V_WIDTH - Width) / 2 );
+
+            Create_Win32_Window(title, X, Y, Width, Height, Black_title_bar);
 
             break;
         }
         case POS_TOP_RIGHT:
         {
+
+            X = (MAX_V_WIDTH - Width);
+            
+            Create_Win32_Window(title, X, Y, Width, Height, Black_title_bar);
+
             break;
         }
         case CENTER_LEFT:
         {
+            Y = ((MAX_V_HEIGHT - Height) / 2 );
+
+            Create_Win32_Window(title, X, Y, Width, Height, Black_title_bar);
+            
             break;
         }
         case CENTER:
         {
+            
+            Y = ((MAX_V_HEIGHT - Height) / 2);
+
+            X = ((MAX_V_WIDTH - Width) / 2);
+
+            Create_Win32_Window(title, X, Y, Width, Height, Black_title_bar);
+
             break;
         }
         case CENTER_RIGHT:
         {
+            Y = ((MAX_V_HEIGHT - Height) / 2);
+            
+            X = (MAX_V_WIDTH - Width);
+
+            Create_Win32_Window(title, X, Y, Width, Height, Black_title_bar);
+
             break;
         }
         case POS_BOTTOM_LEFT:
         {
+            Y = (MAX_V_HEIGHT - Height);
+
+            Create_Win32_Window(title, X, Y, Width, Height, Black_title_bar);
+
             break;
         }
         case POS_BOTTOM_CENTER:
         {
+            Y = (MAX_V_HEIGHT - Height);
+
+            X = ((MAX_V_WIDTH - Width) / 2);
+
+            Create_Win32_Window(title, X, Y, Width, Height, Black_title_bar);
             break;
         }
         case POS_BOTTOM_RIGHT:
         {
+            Y = (MAX_V_HEIGHT - Height);
+
+            X = (MAX_V_WIDTH - Width);
+
+            Create_Win32_Window(title, X, Y, Width, Height, Black_title_bar);
+
             break;
         }
         default:

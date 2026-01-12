@@ -134,8 +134,6 @@ void Create_Win32_Window(const wchar_t* title, int X_Pos, int Y_Pos, int Width, 
 		// addictions go here if applicable 
 	}
 
-	ShowWindow(DEF_Screen, SW_SHOW);
-
 	if (Global_Properties.Window_instance_Count < MAX_WH_LIST)
 	{
 		Global_Properties.Process_owned_WI_count++;
@@ -179,7 +177,6 @@ void ALL_Process_Window_Lists()
 
 }
 
-
 static BOOL
 CALLBACK Monitor_enum_Proc(HMONITOR Monitor_, HDC, LPRECT, LPARAM)
 {
@@ -214,53 +211,22 @@ CALLBACK Monitor_enum_Proc(HMONITOR Monitor_, HDC, LPRECT, LPARAM)
 
 	Global_Properties.Monitor->DPI_Scale = (float)Global_Properties.Monitor->X_Dpi / 96.0f;
 
-	Global_Properties.Monitor->PM_Workable_Width = Monitor_Info_Struct.rcMonitor.right - Monitor_Info_Struct.rcMonitor.left;
-	Global_Properties.Monitor->PM_Workable_Height = Monitor_Info_Struct.rcMonitor.bottom - Monitor_Info_Struct.rcMonitor.top;
+	int Width_Region = Monitor_Info_Struct.rcMonitor.right - Monitor_Info_Struct.rcMonitor.left;
+	int Height_Region = Monitor_Info_Struct.rcMonitor.bottom - Monitor_Info_Struct.rcMonitor.top;
 
 	int Workable_Width_Region = Monitor_Info_Struct.rcWork.right - Monitor_Info_Struct.rcWork.left;
 	int Workable_Height_Region = Monitor_Info_Struct.rcWork.bottom - Monitor_Info_Struct.rcWork.top;
 
-	if (Global_Properties.Monitor->DPI_Awareness_Status == true)
-	{
-		Global_Properties.Monitor->PM_Virtual_Width = Global_Properties.Monitor->PM_Width;
-		Global_Properties.Monitor->PM_Virtual_Height = Global_Properties.Monitor->PM_Height;
+	Global_Properties.Monitor->PM_Virtual_Width = Width_Region;
+	Global_Properties.Monitor->PM_Virtual_Height = Height_Region;
 
-		Global_Properties.Monitor->PM_V_Workable_Width = Workable_Width_Region;
-		Global_Properties.Monitor->PM_V_Workable_Height = Workable_Height_Region;
+	Global_Properties.Monitor->PM_V_Workable_Width = Workable_Width_Region;
+	Global_Properties.Monitor->PM_V_Workable_Height = Workable_Height_Region;
 
-		Global_Properties.Monitor->PM_Present_count++;
-	}
-	else
-	{
-		Global_Properties.Monitor->PM_Virtual_Width = Global_Properties.Monitor->PM_Width / Global_Properties.Monitor->DPI_Scale;
-		Global_Properties.Monitor->PM_Virtual_Height = Global_Properties.Monitor->PM_Height / Global_Properties.Monitor->DPI_Scale;
-
-		Global_Properties.Monitor->PM_V_Workable_Width = Workable_Width_Region / Global_Properties.Monitor->DPI_Scale;
-		Global_Properties.Monitor->PM_V_Workable_Height = Workable_Height_Region / Global_Properties.Monitor->DPI_Scale;
-
-		Global_Properties.Monitor->PM_Present_count++;
-	}
+	Global_Properties.Monitor->PM_Present_count++;
 
 	return TRUE;
 };
-
-/*
-// Physical monitor bounds (raw pixels)
-Global_Properties.Monitor->PM_Physical_Max_Width =
-	Monitor_Info_Struct.rcMonitor.right - Monitor_Info_Struct.rcMonitor.left;
-
-Global_Properties.Monitor->PM_Physical_Max_Height =
-	Monitor_Info_Struct.rcMonitor.bottom - Monitor_Info_Struct.rcMonitor.top;
-
-// Physical workable area (raw pixels)
-Global_Properties.Monitor->PM_Physical_Workable_Width =
-	Monitor_Info_Struct.rcWork.right - Monitor_Info_Struct.rcWork.left;
-
-Global_Properties.Monitor->PM_Physical_Workable_Height =
-	Monitor_Info_Struct.rcWork.bottom - Monitor_Info_Struct.rcWork.top;
-
-*/
-
 
 void Display_DPI_Properties(bool state)
 {	
@@ -321,17 +287,19 @@ void Display_DPI_Properties(bool state)
 	{
 		const Physical_Monitor& PM_List = Global_Properties.Monitor[I];
 
-		wcout << L"Monitor: " << PM_List.Monitor_Name << "\n";
+		wcout << L"Monitor: \t" << PM_List.Monitor_Name << "\n\n";
 		
-		wcout << L"Physical Resolution: " 
+		wcout << L"Physical Resolution: \t" 
 			<< PM_List.PM_Width << L"x" << PM_List.PM_Height << "\n";
-		wcout << L"Workable Physical Resolution" << ": "
-			<< PM_List.PM_Workable_Width << L"x" << PM_List.PM_Workable_Height << "\n";
-		wcout << L"DPI: " << PM_List.X_Dpi << "\n";
-		wcout << L"DPI Scale factor: " << (PM_List.DPI_Scale * 100.0f) << "\n";
-		wcout << L"Virtual Resolution: " << PM_List.PM_Virtual_Width << L"x" << PM_List.PM_Virtual_Height << "\n";
-		wcout << L"Workable Virtual Resolution: " << PM_List.PM_V_Workable_Width << L"x" << PM_List.PM_V_Workable_Height << "\n\n";
 
-		wcout << L"X and Y DPI vals: " << PM_List.X_Dpi << L"\t" << PM_List.Y_Dpi << "\n";
+		wcout << L"Virtual Resolution: \t" << PM_List.PM_Virtual_Width << L"x" << PM_List.PM_Virtual_Height << "\n";
+
+		wcout << L"Workable Virtual Resolution: \t" << PM_List.PM_V_Workable_Width << L"x" << PM_List.PM_V_Workable_Height << "\n";
+
+		wcout << L"DPI: \t" << PM_List.X_Dpi << "\n";
+		
+		wcout << L"DPI Scale factor: \t" << (PM_List.DPI_Scale * 100.0f) << "\n";
+
+		wcout << L"X and Y DPI vals: \t" << PM_List.X_Dpi << L"\t" << PM_List.Y_Dpi << "\n";
 	}
 }

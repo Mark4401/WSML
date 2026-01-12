@@ -3,6 +3,10 @@
 
 #include<Runtime_variables.h>
 
+/*
+	 the resulting outcome will only be debug information & Position alignment check for
+	 the ABI side i.e. API/SDK function - Init_window(...Position argument);
+ */
 void Display_DPI_Properties(bool state);
 
 void Top_Level_Windows();

@@ -16,6 +16,8 @@ void Init_Program(Start_Up_Properties Option)
 		
 		break;
 	case DPI_AWARENESS_FALSE:
+
+		//Global_Properties.Monitor->DPI_Awareness_Status = false;
 		
 		Display_DPI_Properties(false);
 		

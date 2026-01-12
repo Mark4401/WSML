@@ -9,10 +9,20 @@ int main(int argv, char* argc[])
 
     Init_Program(DPI_AWARENESS_FALSE);
 
-    Init_Window(L"Test_Window! ;P | WSML i.e (WIndowing & State Management Library)",
-        2500,1440, true, POS_TOP_LEFT);
-    //Init_Window(L"Test_Window! ;P", 400, 1800, false, CENTER);
-    //Init_Window(L"Test_Window! ;P", 400, 1800, true , CENTER);
+    //Init_Window(L"Test_Window! ;P | WSML i.e (WIndowing & State Management Library)",
+    //    800,800, true, POS_TOP_RIGHT);
+    
+    int Width = 2560, Height = 400;
+
+    Init_Window(L"Test_Window! Top Left", Width, Height, false, POS_TOP_LEFT);
+    //Init_Window(L"Test_Window! top Center", Width, Height, true , POS_TOP_CENTER);
+    //Init_Window(L"Test_Window! top Right", Width, Height, false, POS_TOP_RIGHT);
+    //Init_Window(L"Test_Window! Center Left", Width, Height, true, CENTER_LEFT);
+    //Init_Window(L"Test_Window! Center Left", Width, Height, false, CENTER);
+    //Init_Window(L"Test_Window! Center Left", Width, Height, true, CENTER_RIGHT);
+    //Init_Window(L"Test_Window! Center Left", Width, Height, false, POS_BOTTOM_LEFT);
+    //Init_Window(L"Test_Window! Center Left", Width, Height, true, POS_BOTTOM_CENTER);
+    //Init_Window(L"Test_Window! Center Left", Width, Height, false , POS_BOTTOM_RIGHT);
 
     Process_Lists();
 
@@ -21,7 +31,7 @@ int main(int argv, char* argc[])
         //return true;
     };
 
-    Retrieve_All_Active_Window_instances();
+    //Retrieve_All_Active_Window_instances();
 
     return 0;
 }

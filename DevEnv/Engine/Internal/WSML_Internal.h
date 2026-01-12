@@ -23,9 +23,6 @@ struct Physical_Monitor
 	int PM_Width;
 	int PM_Height;
 
-	int PM_Workable_Width;
-	int PM_Workable_Height;
-
 	int PM_Virtual_Width;
 	int PM_Virtual_Height;
 
