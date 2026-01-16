@@ -28,12 +28,7 @@ void Top_Level_Windows()
 
 LRESULT CALLBACK
 Default_Window_Proc(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
-{
-	if (!DWM_Edges.DWM_Edit_Mode == false)
-	{
-		DWM_Exmaple_1(Window, Message, WParam, LParam);
-	}
-	
+{	
 	switch (Message)
 	{
 		case WM_DESTROY:
@@ -79,6 +74,11 @@ Default_Window_Proc(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 
 			EndPaint(Window, &ps);
 		}
+	}
+
+	if (!DWM_Edges.DWM_Edit_Mode == false)
+	{
+		DWM_Exmaple_1(Window, Message, WParam, LParam);
 	}
 
 	return DefWindowProcW(Window, Message, WParam, LParam);

@@ -267,50 +267,6 @@ static LRESULT Custom_Caption_Proc_1(HWND Window, UINT Message, WPARAM WParam, L
 	return L_Rssult;
 }
 
-static LRESULT Application_Window_Proc_1(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
-{
-	int				Window_Massage_Id, Window_Massage_Event;
-	PAINTSTRUCT		Paint_Source;
-	HDC				Handle_Device_context;
-	LRESULT			Long_Rssult;
-	HRESULT			Handle_Result;
-
-	switch (Message)
-	{
-		case WM_CREATE: 
-		{}
-		case WM_COMMAND:
-		{
-			Window_Massage_Id = LOWORD(WParam);
-			Window_Massage_Event = HIWORD(WParam);
-
-			switch (Window_Massage_Id)
-			{
-				default:
-					return DefWindowProc(Window, Message, WParam, LParam);
-			}
-			break;
-		}
-		case WM_PAINT:
-		{
-			Handle_Device_context = BeginPaint(Window, &Paint_Source);
-			PaintCustomCaption(Window, Handle_Device_context);
-
-			// Add any drawing code here...
-
-			EndPaint(Window, &Paint_Source);
-		}
-		break;
-		case WM_DESTROY:
-			PostQuitMessage(0);
-			break;
-		default:
-			return DefWindowProc(Window, Message, WParam, LParam);
-	}
-	return 0;
-}
-
-
 LRESULT DWM_Exmaple_1(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 {
 	bool f_Call_DW_P = true;
@@ -323,11 +279,6 @@ LRESULT DWM_Exmaple_1(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 	if (SUCCEEDED(Handle_Result))
 	{
 		l_Result = Custom_Caption_Proc_1(Window, Message, WParam, LParam, &f_Call_DW_P);
-	}
-
-	if (f_Call_DW_P)
-	{
-		l_Result = Application_Window_Proc_1(Window, Message, WParam, LParam);
 	}
 
 	return l_Result;

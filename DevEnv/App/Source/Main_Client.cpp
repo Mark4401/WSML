@@ -7,9 +7,9 @@ int main(int argv, char* argc[])
 {
     cout << "\ncalled from an C++ file! :p\n\n";
 
-    Init_Program(DPI_AWARENESS_FALSE, DISABLE_DWM_EDIT);
+    Init_Program(DPI_AWARENESS_FALSE, ENABLE_DWM_EDIT);
     
-    //Extend_Outer_Window_Borders(400, 300, 200, 100);
+    Extend_Outer_Window_Borders(400, 300, 200, 100);
     
     Init_Window(L"Test_Window! ;P | WSML i.e (WIndowing & State Management Library)",
         1920, 1080, true, CENTER);  
@@ -18,7 +18,7 @@ int main(int argv, char* argc[])
         400, 400, true, POS_TOP_LEFT);
 
     Init_Window(L"Test_Window! 2",
-        400, 400, true, POS_TOP_LEFT);
+        400, 400, true, POS_TOP_RIGHT);
     
     Process_Lists();
 
