@@ -30,5 +30,16 @@ typedef uint64_t int64_u;
 #include<WSML/Keyboard.h>
 #include<WSML/Pulse.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+	WSML_API void Cuda_call_from_lib();
+
+	WSML_API void cuda_test_func();
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
 
 #endif // WSML_H

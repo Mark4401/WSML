@@ -1,5 +1,9 @@
 #include"WSML_Internal.h"
 
-Program_Deafult_Properties Global_Properties = { };
+struct Program_Deafult_Properties	Global_Properties = { };
 
-Window_handle_count Count_Data = { };
+struct Window_handle_count			Count_Data = { };
+
+struct Outer_Borders				DWM_Edges = { };
+
+struct Program_protocal				P_Protical = { };

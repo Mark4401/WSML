@@ -5,6 +5,7 @@
 
 #define MAX_WH_LIST		10
 #define MAX_PM_COUNT	10
+#define	MAX_CHAR_LENGHT 256
 
 struct Window_handle_count
 {
@@ -40,6 +41,16 @@ struct Physical_Monitor
 
 };
 
+struct Outer_Borders
+{	
+	bool DWM_Edit_Mode;
+	int Top;
+	int Bottom;
+	int Left;
+	int Right;
+};
+
+
 struct Program_Deafult_Properties
 {
 	WNDCLASSW			DEAFULT_WINDOW_CLASS;
@@ -50,10 +61,24 @@ struct Program_Deafult_Properties
 	Physical_Monitor	Monitor[MAX_PM_COUNT];
 };
 
+enum Program_protocal_Codes
+{
+	PROG_INIT_SUCCESSFUL,
+	PROG_INIT_FAILURE
+};
+
+struct Program_protocal
+{
+	int Program_initialized_Code = 1;
+};
+
+
+extern Program_protocal				P_Protical;
+
 extern Program_Deafult_Properties	Global_Properties;
 
 extern Window_handle_count			Count_Data;
 
-
+extern Outer_Borders				DWM_Edges;
 
 #endif // !WSML_INTERNAL_H

@@ -6,21 +6,6 @@
 extern "C" {
 #endif
 
-    /*
-
-        - LEGACY STRUCTS
-        - REFERENCE USE ONLY!
-
-    struct	CLIENT
-    {
-        int                 Width;
-        int                 Height;
-        const wchar_t*      Title;
-        bool                Active_black_title_bar;
-    };
-
-    */
-
     enum Window_Position
     {
         POS_TOP_LEFT,
@@ -35,13 +20,23 @@ extern "C" {
         POS_BOTTOM_CENTER,
         POS_BOTTOM_RIGHT
     };
+
+    typedef struct __Window__
+    {
+        void* Address;
+    } Window;
     
-    
+    //Window *handle;
+
     WSML_API void Retrieve_All_Active_Window_instances();
 
     WSML_API void Init_Window(const wchar_t* title, int Width, int Height, bool Black_title_bar, enum Window_Position Position);
+    
+    WSML_API void Extend_Outer_Window_Borders(int Top, int Bottom, int Left, int Right);
 
     WSML_API void Process_Lists();
+    
+    WSML_API void* Return_Window_Adress(const wchar_t* Window_title);
 
 #ifdef __cplusplus
 } // extern "C"
