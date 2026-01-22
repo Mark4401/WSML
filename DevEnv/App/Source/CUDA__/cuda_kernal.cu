@@ -2,6 +2,7 @@
 #include <cuda_runtime_api.h>
 #include <chrono>
 #include <device_launch_parameters.h>
+#include "cuda_functions.h"
 
 #define THREADS 256
 #define BLOCKS 256
@@ -53,3 +54,4 @@ extern "C" void CUDA_demo() {
     cudaFree(d_output);
     printf("Done. APP CALL!\n");
 }
+

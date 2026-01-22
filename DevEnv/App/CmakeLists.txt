@@ -4,16 +4,17 @@ project(Test_Application VERSION 0.3 LANGUAGES C CXX)
 # Add workflow Library prefix to CMAKE_PREFIX_PATH (already determined in root)
 list(APPEND CMAKE_PREFIX_PATH "${Library_Path}")
 
-find_package(WSML 0.4.0 REQUIRED)
+#find_package(WSML 0.4.0 REQUIRED)
 
 #------------------------------------------------------------------------#
 # Project Shortcut-variables
 #------------------------------------------------------------------------#
 
 set(APP_SRCS    
-    # "${CMAKE_CURRENT_SOURCE_DIR}/Source/C_Lang_Demo/Main_Client.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Source/Main_Client.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Source/Demos/DWM_Examples_demo.cpp"
+    # "${CMAKE_CURRENT_SOURCE_DIR}/Source/C_Lang_Demo/Main_Client.c"
+    # "${CMAKE_CURRENT_SOURCE_DIR}/Source/Main_Client.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Source/CDDA_intro.cpp"
 )
 set(APP_HDRS
     "${CMAKE_CURRENT_SOURCE_DIR}/Include/DWM_Examples_demo.h"
@@ -22,6 +23,7 @@ set(APP_HDRS
 
 set(CUDA_FILES
     "${CMAKE_CURRENT_SOURCE_DIR}/Source/CUDA__/cuda_kernal.cu"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Source/CUDA__/Intro_to_CUDA_kernal.cu"
 )
 #------------------------------------------------------------------------#
 # Project Shortcut-variables
@@ -49,7 +51,7 @@ App_builder(${PROJECT_NAME}
     PUBLIC_INCLUDES                     "${CMAKE_CURRENT_SOURCE_DIR}/Include"
     PRIVATE_INCLUDES                    "${CMAKE_CURRENT_SOURCE_DIR}/Internal"
     
-    LINK_LIBS                           ws2_32 WSML::WSML CUDA::cudart
+    LINK_LIBS                           ws2_32 CUDA::cudart
 )
 
 #------------------------------------------------------------------------#

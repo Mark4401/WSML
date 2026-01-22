@@ -47,9 +47,9 @@ function(App_builder TARGET_NAME)
 
     # Unicode export flag + UTF-8 compiler options
     if(APP_EXPORT_FLAG)
-        target_compile_definitions(${TARGET_NAME} PRIVATE UNICODE _UNICODE ${APP_EXPORT_FLAG})
+        target_compile_definitions(${TARGET_NAME} PRIVATE UNICODE _UNICODE ${APP_EXPORT_FLAG} __CUDACC__)
     else()
-        target_compile_definitions(${TARGET_NAME} PRIVATE UNICODE _UNICODE)
+        target_compile_definitions(${TARGET_NAME} PRIVATE UNICODE _UNICODE __CUDACC__)
     endif()
 
     target_compile_options(${TARGET_NAME} PRIVATE

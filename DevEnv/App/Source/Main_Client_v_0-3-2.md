@@ -1,4 +1,6 @@
-﻿#include<WSML/WSML.h>
+﻿```cpp
+
+#include<WSML/WSML.h>
 #include <iostream>
 #include"cuda_functions.h"
 
@@ -38,4 +40,6 @@ int main(int argv, char* argc[])
     return 0;
 }
 
-// Telemetry
+// Telemetry                    
+
+```

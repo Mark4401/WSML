@@ -10,3 +10,4 @@
 #define WSML_API __declspec(dllexport)
 #define WSML_API __declspec(dllimport)
 #define WSML_API
+#define __CUDA_INTRO__
