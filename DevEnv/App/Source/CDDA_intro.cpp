@@ -8,7 +8,7 @@ int main(int argc, char** argv)
 	int vectorLength = 1024;
 	if (argc >= 2)
 	{
-		vectorLength = std::atoi(argv[1]);
+		vectorLength = atoi(argv[1]);
 	}
 
 	Intro(vectorLength);

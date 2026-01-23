@@ -12,6 +12,7 @@
 // CUDA headers
 #include<cuda_runtime.h>
 #include<cuda/cmath>
+#include <device_launch_parameters.h>
 
 
 // CUDA Kernel function 

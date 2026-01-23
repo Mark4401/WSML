@@ -47,9 +47,13 @@ function(App_builder TARGET_NAME)
 
     # Unicode export flag + UTF-8 compiler options
     if(APP_EXPORT_FLAG)
-        target_compile_definitions(${TARGET_NAME} PRIVATE UNICODE _UNICODE ${APP_EXPORT_FLAG} __CUDACC__)
+        target_compile_definitions(${TARGET_NAME} PRIVATE UNICODE _UNICODE ${APP_EXPORT_FLAG}
+            $<$<COMPILE_LANGUAGE:CUDA>:CCCL_IGNORE_DEPRECATED_CPP_DIALECT>
+        )
     else()
-        target_compile_definitions(${TARGET_NAME} PRIVATE UNICODE _UNICODE __CUDACC__)
+        target_compile_definitions(${TARGET_NAME} PRIVATE UNICODE _UNICODE
+            $<$<COMPILE_LANGUAGE:CUDA>:CCCL_IGNORE_DEPRECATED_CPP_DIALECT>
+        )
     endif()
 
     target_compile_options(${TARGET_NAME} PRIVATE
@@ -104,7 +108,7 @@ function(App_builder TARGET_NAME)
 
 
     if(APP_CUDA_SOURCES)
-        foreach(cu_src IN LISTS LIB_CUDA_SOURCES)
+        foreach(cu_src IN LISTS APP_CUDA_SOURCES)
             set_source_files_properties(${cu_src} PROPERTIES LANGUAGE CUDA)
         endforeach()
     else()

@@ -17,7 +17,7 @@ set(APP_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Source/CDDA_intro.cpp"
 )
 set(APP_HDRS
-    "${CMAKE_CURRENT_SOURCE_DIR}/Include/DWM_Examples_demo.h"
+    # "${CMAKE_CURRENT_SOURCE_DIR}/Include/DWM_Examples_demo.h"
     ""
 )
 
@@ -43,7 +43,7 @@ App_builder(${PROJECT_NAME}
     DEBUG_CONSOLE_INCLUSION_STATE       ENABLED
     
     EXPORT_FLAG                         ""
-    CUDA_SEPARABLE_COMPILATION          OFF
+    CUDA_SEPARABLE_COMPILATION          ON
     SOURCES                             ${APP_SRCS}
     HEADERS                             ${APP_HDRS}
     CUDA_SOURCES                        ${CUDA_FILES}
